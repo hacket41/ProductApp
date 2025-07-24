@@ -1,22 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Product List</title>
-</head>
-<body>
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Product List{% endblock %}
+
+{% block content %}
     <h1>Our Products</h1>
-    <ul>
-        {% for product in products %}
-            <li>
-                <strong>
-                    <a href="{% url 'product_detail' product.pk %}">{{ product.name }}</a>
-                </strong><br>
-                {{ product.description }}<br>
-                Price: ${{ product.price }}
-            </li>
-        {% empty %}
-            <li>No products available.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+    
+    {% if products %}
+        <ul class="product-list">
+            {% for product in products %}
+                <li class="product-item">
+                    <strong>{{ product.name }}</strong>
+                    <p>{{ product.description }}</p>
+                    <p>Price: ${{ product.price }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p style="text-align: center;">No products available.</p>
+    {% endif %}
+{% endblock %}
